@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.spoc.mapper.CourseMapper">
+  <resultMap id="BaseResultMap" type="com.edu.spoc.model.Course">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+    <result column="course_introduction" jdbcType="VARCHAR" property="courseIntroduction" />
+    <result column="course_info" jdbcType="VARCHAR" property="courseInfo" />
+    <result column="course_outline" jdbcType="VARCHAR" property="courseOutline" />
+    <result column="course_score_standard" jdbcType="VARCHAR" property="courseScoreStandard" />
+    <result column="course_video_introduction" jdbcType="VARCHAR" property="courseVideoIntroduction" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="course_teachers" jdbcType="VARCHAR" property="courseTeachers" />
+    <result column="course_cover" jdbcType="VARCHAR" property="courseCover" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, course_name, course_introduction, course_info, course_outline, course_score_standard, 
+    course_video_introduction, status, course_teachers, course_cover
+  </sql>
+  <select id="selectByExample" parameterType="com.edu.spoc.model.CourseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.edu.spoc.model.CourseExample">
+    delete from course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.edu.spoc.model.Course">
+    insert into course (id, course_name, course_introduction, 
+      course_info, course_outline, course_score_standard, 
+      course_video_introduction, status, course_teachers, 
+      course_cover)
+    values (#{id,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}, #{courseIntroduction,jdbcType=VARCHAR}, 
+      #{courseInfo,jdbcType=VARCHAR}, #{courseOutline,jdbcType=VARCHAR}, #{courseScoreStandard,jdbcType=VARCHAR}, 
+      #{courseVideoIntroduction,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{courseTeachers,jdbcType=VARCHAR}, 
+      #{courseCover,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.spoc.model.Course">
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="courseName != null">
+        course_name,
+      </if>
+      <if test="courseIntroduction != null">
+        course_introduction,
+      </if>
+      <if test="courseInfo != null">
+        course_info,
+      </if>
+      <if test="courseOutline != null">
+        course_outline,
+      </if>
+      <if test="courseScoreStandard != null">
+        course_score_standard,
+      </if>
+      <if test="courseVideoIntroduction != null">
+        course_video_introduction,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="courseTeachers != null">
+        course_teachers,
+      </if>
+      <if test="courseCover != null">
+        course_cover,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null">
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseIntroduction != null">
+        #{courseIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="courseInfo != null">
+        #{courseInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="courseOutline != null">
+        #{courseOutline,jdbcType=VARCHAR},
+      </if>
+      <if test="courseScoreStandard != null">
+        #{courseScoreStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="courseVideoIntroduction != null">
+        #{courseVideoIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="courseTeachers != null">
+        #{courseTeachers,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCover != null">
+        #{courseCover,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.edu.spoc.model.CourseExample" resultType="java.lang.Long">
+    select count(*) from course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update course
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseName != null">
+        course_name = #{record.courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseIntroduction != null">
+        course_introduction = #{record.courseIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseInfo != null">
+        course_info = #{record.courseInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseOutline != null">
+        course_outline = #{record.courseOutline,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseScoreStandard != null">
+        course_score_standard = #{record.courseScoreStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseVideoIntroduction != null">
+        course_video_introduction = #{record.courseVideoIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseTeachers != null">
+        course_teachers = #{record.courseTeachers,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseCover != null">
+        course_cover = #{record.courseCover,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update course
+    set id = #{record.id,jdbcType=VARCHAR},
+      course_name = #{record.courseName,jdbcType=VARCHAR},
+      course_introduction = #{record.courseIntroduction,jdbcType=VARCHAR},
+      course_info = #{record.courseInfo,jdbcType=VARCHAR},
+      course_outline = #{record.courseOutline,jdbcType=VARCHAR},
+      course_score_standard = #{record.courseScoreStandard,jdbcType=VARCHAR},
+      course_video_introduction = #{record.courseVideoIntroduction,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      course_teachers = #{record.courseTeachers,jdbcType=VARCHAR},
+      course_cover = #{record.courseCover,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
